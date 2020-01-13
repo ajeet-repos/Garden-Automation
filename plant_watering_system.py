@@ -1,5 +1,4 @@
 import sys
-import logging
 from datetime import datetime, date, time
 
 from time import sleep
@@ -17,6 +16,7 @@ from email.message import EmailMessage
 import pickle
 
 from local import *
+from remoteLogger import *
 
 #DHT sensor(humdity, temporature) config:
 DHT_PIN = 3
@@ -68,21 +68,21 @@ def getLastTimePumpWasOn():
         d = pickle.load(varFile)
         varFile.close()
         
-        logging.info("datetime:{}\ncounter:{}".format(d["datetime"], d["counter"]))
+        logInfo("datetime:{}\ncounter:{}".format(d["datetime"], d["counter"]))
 
         return d
     except Exception as e:
 
         IS_FIRST_START = True
-        logging.info("is first start is true")
+        logInfo("is first start is true")
 
         d = {"datetime":"{}".format(datetime.timestamp(datetime.now())),"counter":0}
         varFile = open(LOCAL_STORAGE_PATH, "wb")
         pickle.dump(d, varFile)
         varFile.close()
 
-        logging.error("Exception occured.")
-        logging.exception(e)
+        logError("Exception occured.")
+        logException(e)
 
         return d
 
@@ -157,7 +157,7 @@ def sendEmail(humidity, temperature, lightIntensity):
 
     emailServer.send_message(msg)
     emailServer.quit()
-    logging.info("Email sent")
+    logInfo("Email sent")
 
 def sendRestartEmail(msg):
     
@@ -174,7 +174,7 @@ def sendRestartEmail(msg):
     emailServer.send_message(msg)
     emailServer.quit()
 
-    logging.info("Restart email sent.")
+    logInfo("Restart email sent.")
 
     
 def updateLCDDisplay(humidity, temperature, LDR, pumpState):
@@ -261,19 +261,19 @@ def updateLocalStorage(timestamp, counter):
         pickle.dump(LAST_TIME_WATER_PUMP_WAS_ON, varFile)
         varFile.close()
 
-        logging.info(LAST_TIME_WATER_PUMP_WAS_ON["datetime"])
+        logInfo(LAST_TIME_WATER_PUMP_WAS_ON["datetime"])
     except Exception as e:
-        logging.error("error writing to file")
-        logging.error(e)
+        logError("error writing to file")
+        logException(e)
 
     
 def shouldTurnOnPump():
   
     global LAST_TIME_WATER_PUMP_WAS_ON
-    logging.info("LTWPWO: {}".format(LAST_TIME_WATER_PUMP_WAS_ON))
+    logInfo("LTWPWO: {}".format(LAST_TIME_WATER_PUMP_WAS_ON))
 
     now = datetime.now()
-    logging.info("now   : {}".format(now))
+    logInfo("now   : {}".format(now))
     
     pastTime = datetime.fromtimestamp(float(LAST_TIME_WATER_PUMP_WAS_ON["datetime"])) 
     counter = LAST_TIME_WATER_PUMP_WAS_ON["counter"]
@@ -283,25 +283,23 @@ def shouldTurnOnPump():
     if LAST_TIME_WATER_PUMP_WAS_ON["counter"] == 0:
 
         updateLocalStorage(datetime.timestamp(now), counter)
-        logging.info("turn pump on")
+        logInfo("turn pump on")
         return True
     else:
 
         totalSecElapsed = (now - pastTime).total_seconds()
-        logging.info("Time elapsed since last pump operation:  %d" % totalSecElapsed)
+        logInfo("Time elapsed since last pump operation:  %d" % totalSecElapsed)
 
         if totalSecElapsed >= WATER_INTERVAL:
             #LAST_TIME_WATER_PUMP_WAS_ON = now
 
             updateLocalStorage(datetime.timestamp(now), counter)
 
-            logging.info("turn pump on")
+            logInfo("turn pump on")
             return True
         else:
             return False
     
-#Setting up logging for this
-logging.basicConfig(filename="/home/pi/Desktop/garden_automation/info.log", level=logging.DEBUG)
 
 #Temp storatge
 LAST_TIME_WATER_PUMP_WAS_ON = getLastTimePumpWasOn()

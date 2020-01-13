@@ -3,17 +3,17 @@ from plant_watering_system import *
 initGPIO()
 sendRestartEmail("Program Restarted")
 #initLCD()
-logging.info("************************************")
-logging.info("*                                  *")
-logging.info("* Automated Watering System Active *")
-logging.info("*                                  *")
-logging.info("* Author: Ajeet Kumar              *")
-logging.info("* Licence: GNU                     *")
-logging.info("*                                  *")
-logging.info("*                                  *")
-logging.info("************************************")
+logInfo("************************************")
+logInfo("*                                  *")
+logInfo("* Automated Watering System Active *")
+logInfo("*                                  *")
+logInfo("* Author: Ajeet Kumar              *")
+logInfo("* Licence: GNU                     *")
+logInfo("*                                  *")
+logInfo("*                                  *")
+logInfo("************************************")
 
-print("***************Automated Watering System = ON*************")
+logInfo("***************Automated Watering System = ON*************")
 
 while(True):
 
@@ -29,7 +29,7 @@ while(True):
 
             turnOnPump(PUMP_1_ON_DURATION, IN3)
             turnOnPump(PUMP_2_ON_DURATION, IN1)
-            logging.info("sending job email")
+            logInfo("sending job email")
             sendEmail(humidity, temperature, lightIntensity)
             
             turnOnGreenLED(False)
