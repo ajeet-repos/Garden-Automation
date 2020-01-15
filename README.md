@@ -20,9 +20,16 @@ Right now I have added following capabilities to the project:
     4. Status of pump
 5. I have added 3 submersible water pumps as per my requirement but those can be added as per anybody's requirement.
 6. Email to be sent whenever the pump completes watering the plant.
+7. Watering happens once every 24 hrs.
 
 
 **Note:** *To successfully run the project please create the local.py and add all respective variables used in the project there. I haven't included that file for security reasons.*
+
+## Upcoming features
+#### [TODOs]
+- [ ] Persists the data captured into some kind of database - local or remote.
+- [ ] Build alerts when water level in the primary bucket is low.
+- [ ] Reuse existing arduino to build a water network to fill the primary bucket whenever the water level in it is lower than the threshold.
 
 
 
