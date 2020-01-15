@@ -28,7 +28,14 @@ while(True):
             turnOnGreenLED(True) 
 
             turnOnPump(PUMP_1_ON_DURATION, IN3)
+            logInfo("motor 1 run complete.")
+            
             turnOnPump(PUMP_2_ON_DURATION, IN1)
+            logInfo("motor 2 run complete.")
+            
+            turnOnPump(PUMP_3_ON_DURATION, IN3_2)
+            logInfo("motor 3 run complete.")
+            
             logInfo("sending job email")
             sendEmail(humidity, temperature, lightIntensity)
             

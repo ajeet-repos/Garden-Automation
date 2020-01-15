@@ -32,7 +32,7 @@ LDR_PIN = 2
 #Water pump pin config:
 # Motor 1
 ENA = 12 #white
-IN1 = 5 #black
+IN1 = 5 #black, Turn high to start the motor
 IN2 = 6 #red
 
 # Motor 2
@@ -42,6 +42,12 @@ IN4 = 20
 WATER_INTERVAL = 86400 #secs
 PUMP_1_ON_DURATION = 30 #secs
 PUMP_2_ON_DURATION = 40 #secs
+PUMP_3_ON_DURATION = 50 #secs
+
+# Motor 3
+ENB_2 = 22
+IN3_2 = 17 # turn on high to start the motor
+IN4_2 = 27
 
 #Raspberry Pi hardware SPI config:
 DC = 23
@@ -109,7 +115,10 @@ def initGPIO():
     GPIO.setup(ENA, GPIO.OUT,  initial=GPIO.LOW)
     GPIO.setup(IN1, GPIO.OUT,  initial=GPIO.LOW)
     GPIO.setup(IN2, GPIO.OUT,  initial=GPIO.LOW)
-
+    #Motor - 3
+    GPIO.setup(ENB_2, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(IN3_2, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(IN4_2, GPIO.OUT, initial=GPIO.LOW)
     
     #Turn on RED LED to show the code is working
     try:
@@ -118,6 +127,7 @@ def initGPIO():
         #ENABLE MOTOR 1 in L298 Micro-Controller
         GPIO.output(ENB, GPIO.HIGH)
         GPIO.output(ENA, GPIO.HIGH)
+        GPIO.output(ENB_2, GPIO.HIGH)
     except:
         pass
 
