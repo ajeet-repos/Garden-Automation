@@ -6,7 +6,7 @@ This is a system that I designed to help with my gardening using the very extens
 ![Circuit diagram](https://github.com/ajeet-repos/Garden-Automation/blob/master/garden%20system_bb.png)
 
 ## System Overview
-Final objective of this project is to build a gardening system, involving one or more connected devices, with average intelligence to help out with my reapeated task like watering the plants because I have seen my plant suffer whenever I go on vacations.
+Final objective of this project is to build a gardening system, involving one or more connected devices, with average intelligence to help out with my reapeated task like watering the plants because I have seen my plants suffer whenever I go on vacations.
 
 Right now I have added following capabilities to the project:
 
