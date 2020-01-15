@@ -5,6 +5,8 @@ This is a system that I designed to help with my gardening using the very extens
 ## Circuit Diagram
 ![Circuit diagram](https://github.com/ajeet-repos/Garden-Automation/blob/master/garden%20system_bb.png)
 
+**Power supply is of 12v not 9v as shown in the image.** 
+
 ## System Overview
 Final objective of this project is to build a gardening system, involving one or more connected devices, with average intelligence to help out with my reapeated task like watering the plants because I have seen my plants suffer whenever I go on vacations.
 
